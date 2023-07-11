@@ -1,0 +1,280 @@
+<ng-template class="template" #content let-c="close" let-d="dismiss">
+  <form [formGroup]="myForm" (ngSubmit)="guardar(myForm)">
+    <div class="modal-header">
+      <h4 style="margin-left: 40%;" class="modal-title" id="modal-basic-title">
+        Cliente
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="refresh()"
+        (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" mat-icon>
+      <br>
+      <div class="input-group mb-3"> 
+        <span class="input-group-text" id="basic-addon3"><mat-icon class="">check_circle</mat-icon></span>
+        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="dstipodocumento">
+          <option selected [ngValue]="null">Seleccione tipo documento: </option>
+          <option value="CC">Cedula de Ciudania</option>
+          <option value="CE">Cedula Extranjera</option>
+          <option value="PA">Pasaporte</option>
+          <option value="VI">Visa</option>
+        </select>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><mat-icon class="icons_usuario"> note_add</mat-icon></span>    
+        <input name="textarea" type="number" class="form-control" formControlName="cdidentificacion"
+          placeholder="N° identificacion..." required>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><mat-icon class="icons_usuario"> note_add</mat-icon></span> 
+        <input name="textarea" type="text" class="form-control" formControlName="dsnombrecompleto"
+          placeholder="Ingresar nombre..." />
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><mat-icon class="icons_usuario"> note_add</mat-icon></span> 
+        <input name="textarea" type="text" class="form-control" formControlName="dsciudad"
+          placeholder="Ingresar ciudad..." >
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><mat-icon class="icons_usuario"> note_add</mat-icon></span> 
+        <input name="textarea" type="text" class="form-control" formControlName="dsdireccion"
+          placeholder="Ingresar direccion..." >
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><mat-icon class="icons_usuario"> note_add</mat-icon></span> 
+        <input name="textarea" type="text" class="form-control" formControlName="dstelefono"
+          placeholder="Ingresar numero telefonico..." >
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button title="Guardar y agregar" type="submit" class="btn btn-success active"  >Guardar</button>
+       <!-- <mat-icon class="icon-button" (click)="errorbutton()"> add</mat-icon>--> 
+<!-- [formNoValidate]=""  Sirve para valiadr un formulario-->
+      <button title="Guardar y salir" type="submit" class="btn btn-success active" (click)="refresh()" (click)="d('Cross click')"
+        (click)="errorbutton()" [disabled]="myForm.invalid">
+        <!--<mat-icon class="icon-button"> subdirectory_arrow_right</mat-icon>--> Salir y Guardar
+      </button>
+      <button type="button" title="Cancelar" (click)="refresh()" class="btn btn-danger" (click)="d('Cross click')">
+        <!--<mat-icon> cancel_presentation</mat-icon>--> Cancelar
+      </button>
+    </div>
+  </form>
+</ng-template>
+<!--===================================FIN MODAL CREAR y EDITAR CLIENTES=============================-->
+
+<div class="container-xxl position-relative bg-white d-flex p-0">
+  <!-- Sidebar Start -->
+  <div class="sidebar pe-4 pb-3">
+    <nav class="navbar bg-light navbar-light">
+      <a href="/administrador" class="navbar-brand mx-4 mb-3">
+        <h4 class="text-success">
+          <mat-icon> local_hospital</mat-icon>VETERINARIA
+        </h4>
+      </a>
+      <div class="d-flex align-items-center ms-4 mb-4">
+        <div class="position-relative">
+          <img class="rounded-circle" src="./assets/strange.jpg" alt="" style="width: 40px; height: 40px" />
+          <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+          </div>
+        </div>
+        <div class="ms-3">
+          <h6 class="mb-0">Juter Sa</h6>
+          <span>Administrador</span>
+        </div>
+      </div>
+      <div class="navbar-nav w-100">
+        <a href="/administrador" class="nav-item nav-link active"><mat-icon>view_list</mat-icon> Panel</a>
+        <a href="/mascotas" class="nav-item nav-link"><mat-icon>view_list</mat-icon> Mascotas
+        </a>
+      </div>
+    </nav>
+  </div>
+  <!-- Sidebar End -->
+
+  <!-- Content Start -->
+  <div class="content">
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+      <a href="" class="navbar-brand d-flex d-lg-none me-4">
+        <h2 class="text-primary mb-0"><mat-icon>view_day</mat-icon></h2>
+      </a>
+      <a href="#" class="sidebar-toggler flex-shrink-0">
+        <i class="fa fa-bars"></i>
+      </a>
+      <form class="d-none d-md-flex ms-4">
+        <input class="form-control border-0" type="search" placeholder="Buscar cliente" />
+      </form>
+      <div class="navbar-nav align-items-center ms-auto">
+        <div class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <img class="rounded-circle me-lg-2" src="./assets/strange.jpg" alt="" style="width: 40px; height: 40px" />
+            <span class="d-none d-lg-inline-flex">Saul Julio Teran</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+            <a href="#" class="dropdown-item"><mat-icon>keyboard_arrow_down</mat-icon> Salir</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Recent Sales Start -->
+    <div class="container-fluid pt-4 px-4">
+      <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h6 class="" mat-icon >Clientes <mat-icon> supervisor_account</mat-icon> </h6>
+          <button style="text-align: right;  padding-right: 1rem;" title="Nuevo Registro" type="submit" class="btn btn-info" (click)="open(content)">
+            Nuevo <mat-icon> add_box</mat-icon>  
+          </button>
+        </div>
+        <div class="table-responsive">
+          <table class="table text-start align-middle table-bordered table-hover mb-0 table-dark" datatable >
+            <thead>
+              <tr class="" style="text-align:center;">
+                <th scope="col">N°</th>
+                <th scope="col">T.Documento</th>
+                <th scope="col">Identificacion</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Ciudad</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--filterClientes:filterPost-->
+            <tr *ngFor="let item of datosClientes; index as i" style="text-align:center;">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.dstipodocumento }}</td>
+                <td>{{ item.cdidentificacion }}</td>
+                <td>{{ item.dsnombrecompleto }}</td>
+                <td>{{ item.dsciudad }}</td>
+                <td>{{ item.dsdireccion }}</td>
+                <td>{{ item.dstelefono }}</td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-info" mat-icon matTooltip="Nueva Mascota" (click)="open(addMascotas)">
+                      <mat-icon>add_circle</mat-icon>
+                    </button>
+                    <button class="btn btn-info " (click)="editar(item)" (click)="openEdit(content)" mat-icon matTooltip="Editar">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <a class="btn btn-info" mat-icon routerLink="/mascotas" (click)="verMascotas(item)"  matTooltip="Ver mascotas">
+                      <mat-icon>visibility</mat-icon>
+                    </a>
+                    <button class="btn btn-info "  (click)="openEdit(eliminarCliente)" mat-icon matTooltip="Eliminar">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </div>
+                </td>
+                <ng-template class="template" #addMascotas let-c="close" let-d="dismiss">
+                  <form [formGroup]="myFormMascota" (ngSubmit)="guardarMascota(myFormMascota)">
+                    <input type="number" class="controls" formControlName="nmcliente" [(ngModel)]="item.nmid" hidden>
+                    <div class="modal-header">
+                      <h4 style="margin-left: 40%;" class="modal-title" id="modal-basic-title">
+                        Mascotas
+                      </h4>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="refresh()"
+                        (click)="d('Cross click')"></button>
+                    </div>
+                    <div class="modal-body" mat-icon>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3"><mat-icon class="icons_usuario"> note_add</mat-icon></span>  
+                        <input name="textarea" type="text" class="form-control" formControlName="dsnombrecompleto"
+                          placeholder="Ingresar nombre..." />
+                      </div>
+                      <br>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3"><mat-icon class="icons_usuario"> note_add</mat-icon></span>  
+                        <input name="textarea" type="text" class="form-control" formControlName="dsespecie"
+                          placeholder="Ingresar especie..." >
+                      </div>
+                      <br>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3"><mat-icon class="icons_usuario"> note_add</mat-icon></span>  
+                        <input name="textarea" type="text" class="form-control" formControlName="dsraza"
+                          placeholder="Ingresar raza..." >
+                      </div>
+                      <br>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3"><mat-icon class="icons_usuario"> note_add</mat-icon></span>  
+                        <input name="textarea" onfocus="(this.type = 'date')"  class="form-control" formControlName="dtfechanacimiento"
+                          placeholder="Ingresar fecha de nacimiento..." >
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button title="Guardar y agregar" type="submit" class="btn btn-info" (click)="errorbuttontwo()" [disabled]="myFormMascota.invalid">
+                        <mat-icon class="icon-button"> add</mat-icon> Guardar
+                      </button>
+                      <button title="Guardar y salir" type="submit" class="btn btn-info" (click)="refresh()" (click)="d('Cross click')"
+                        (click)="errorbuttontwo()" [disabled]="myFormMascota.invalid">
+                        <mat-icon class="icon-button"> subdirectory_arrow_right</mat-icon> Salir
+                        Salir
+                      </button>
+                      <button type="button" title="Cancelar" (click)="refresh()" class="btn btn-danger" (click)="d('Cross click')">
+                        Cancelar
+                      </button>
+                    </div>
+                  </form>
+                </ng-template>
+                <ng-template class="template" #eliminarCliente let-c="close" let-d="dismiss">
+                  <form [formGroup]="formDeleteCliente" (ngSubmit)="removeCliente(formDeleteCliente)">
+                    <div class="modal-header">
+                      <h4 style="margin-left: 40%;" class="modal-title" id="modal-basic-title">
+                        Confirmar!
+                      </h4>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="refresh()"
+                        (click)="d('Cross click')"></button>
+                    </div>
+                    <div class="modal-body" mat-icon>
+                        <p class="alert alert-danger">
+                            Esta seguro que desea eliminar este cliente?.
+                            <input type="number" hidden class="controls" formControlName="nmid" [(ngModel)]="item.nmid">
+                        </p>
+                    </div>   
+                    <div class="modal-footer">
+                      <button title="Guardar y agregar" type="submit" class="btn btn-info" (click)="errorbuttonthree()" [disabled]="formDeleteCliente.invalid" (click)="d('Cross click')">
+                       <!-- <mat-icon class="icon-button">save add</mat-icon>--> Guardar
+                      </button>
+                      <button type="button" title="Cancelar" (click)="refresh()" class="btn btn-danger" (click)="d('Cross click')">
+                        Cancelar
+                      </button>
+                    </div>
+                  </form>
+                </ng-template>
+              </tr> 
+         
+              <!--De aqui hacia abajo no se toca nada hasta nuevo aviso-->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid pt-4 px-4">
+      <div class="bg-light rounded-top p-4">
+        <div class="row">
+          <div class="col-12 col-sm-6 text-center text-sm-start">
+            &copy; <a href="#">VeterinariaXYZ Services</a>, All Right Reserved.
+          </div>
+          <div class="col-12 col-sm-6 text-center text-sm-end">
+            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+            <br />
+            Distributed By
+            <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer End -->
+  </div>
+  <!-- Content End -->
+
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
