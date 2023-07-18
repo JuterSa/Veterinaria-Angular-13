@@ -13,47 +13,76 @@
 
 <body>
     <div class="container" id="container">
-        <!-- <div class="form-container sign-up-container">
-            <form action="#">
-                <h1>Create Account</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <button>Sign Up</button>
-            </form>
-        </div>-->
-        <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>Iniciar sesión</h1>
-                <!-- <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div> -->
-                <span>Usa tu cuenta</span>
-                <input type="text" id="name" name="name" required minlength="4" appForbiddenName="bob"
-                    [(ngModel)]="usuario.name" #name="ngModel" placeholder="Email" />
-                <!---->
-               <!--<div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger"></div>-->
-                <div *ngIf="name.errors?.['required']">
-                    El email es requerido
-                </div>
 
-                <!---->
-                <input type="password" placeholder="Password" id="contra" minlength="4" name="contra"  [(ngModel)]="usuario" #contra="ngModel"   />
-                <div *ngIf="contra.errors?.['required']">
-                    La contraseña es requerida
-                </div>
-                <!--<a href="#">Forgot your password?</a>-->
-                <button>Iniciar sesión</button>
-            </form>
+        <div class="form-container sign-in-container">
+            <form
+      *ngIf="!isLoggedIn"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          name="username"
+          [(ngModel)]="form.username"
+          required
+          #username="ngModel"
+        />
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="username.errors && f.submitted"
+        >
+          Username is required!
         </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          [(ngModel)]="form.password"
+          required
+          minlength="6"
+          #password="ngModel"
+        />
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="password.errors && f.submitted"
+        >
+          <div *ngIf="password.errors['required']">Password is required</div>
+          <div *ngIf="password.errors['minlength']">
+            Password must be at least 6 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">
+          Login
+        </button>
+      </div>
+      <div class="form-group">
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="f.submitted && isLoginFailed"
+        >
+          Inicio de sesion fallido: {{ errorMessage }}
+        </div>
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="isLoggedIn">
+      Login exitoso {{ dsroles }}.
+    </div>
+  </div>
+</div>
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
@@ -68,25 +97,10 @@
                 </div>
             </div>
         </div>
-    </div>
+
     <!--<script src="assets/JS/main.js"></script>-->
 </body>
 
+
 </html>
 
-<!--<input type="text" id="name" name="name" required minlength="4" appForbiddenName="bob" [(ngModel)]="hero"
-    #name="ngModel">
-
-<div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-
-    <div *ngIf="name.errors?.['required']">
-        El nombre es requerido
-    </div>
-    <div *ngIf="name.errors?.['minlength']">
-        EL nombre no pude tener menos de 4 caracteres
-    </div>
-    <div *ngIf="name.errors?.['forbiddenName']">
-        Nombre de bob.
-    </div>
-
-</div>-->

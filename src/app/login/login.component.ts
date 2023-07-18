@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UsuarioService } from '../services/usuario.service';
+import { TokenStorageService } from '../services/token-storage.service';
+import { Location } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -7,30 +12,72 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  heroForm!: FormGroup;
-  [x: string]: any;
-  usuario: any;
-  constructor() { }
+  form: any = {
+    username: null,
+    password: null
+  };
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  dsroles: string[] = [];
+
+  constructor(private authService: UsuarioService, private tokenStorage: TokenStorageService, private router:Router) { }
 
   ngOnInit(): void {
-    this.heroForm = new FormGroup({
-      name: new FormControl(this.usuario.name, [
-        Validators.required,
-        Validators.minLength(4),
-        forbiddenNameValidator(/bob/i) // <-- Here's how you pass in the custom validator.
-      ]),
-      alterEgo: new FormControl(this.usuario.alterEgo),
-      contra: new FormControl(this.usuario.contra, Validators.required)
-    });
-  
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.dsroles = this.tokenStorage.getUser().dsroles;
+    }
   }
-  
-  get name() { return this.heroForm.get('name'); }
-  
-  get power() { return this.heroForm.get('power'); }
 
-}
-function forbiddenNameValidator(arg0: RegExp): import("@angular/forms").ValidatorFn {
-  throw new Error('Function no implementada.');
-}
+  onSubmit(): void {
+    const { username, password } = this.form;
 
+    this.authService.login(username, password).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.dsroles = this.tokenStorage.getUser().dsroles;
+        //this.reloadPage();
+        let datosApi: {[key: string]: any} = {data};
+        for(let i in datosApi){
+          for(let d in datosApi[i]){
+           if(datosApi[i][d]== "Acceso denegado"){
+              console.error("Error en la sesion")
+              this.isLoginFailed = false;
+              this.errorMessage = "Inicio de sesion fallido"
+            }else if(datosApi[i][d] == "Acceso concedido"){
+              console.log("Inicio de sesion exitoso")
+              this.router.navigate(["/administrador"])
+           }
+          }
+          break
+        }
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      }
+    );
+   /* let datosApi: {[key: string]: any} = {data};
+          for(let i in datosApi){
+            for(let d in datosApi[i]){
+             if(datosApi[i][d]== "Acceso denegado"){
+                console.error("Error en la sesion")
+              }else if(datosApi[i][d] == "Acceso concedido"){
+                console.log("Inicio de sesion exitoso")
+             }
+            }
+            break
+          }*/
+  }
+
+  reloadPage(): void {
+    window.location.reload();
+  }
+  }
+
+  
