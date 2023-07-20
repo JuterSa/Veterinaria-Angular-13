@@ -17,9 +17,10 @@ import { CoreModule } from './core/core.module';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
-//import 'angular-datatables';
+import 'angular-datatables';
 import { BlockUIModule } from 'ng-block-ui';
-//import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { DataTableDirective, DataTablesModule } from "angular-datatables";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { BlockUIModule } from 'ng-block-ui';
     LoginComponent
   ],
   imports: [
-    //SweetAlert2Module.forRoot(), //La unica forma de que funcione es migrar a las versiones (14 or 15 angular)
+    SweetAlert2Module.forRoot(), //La unica forma de que funcione es migrar a las versiones (14 or 15 angular)
     MatPaginatorModule,
     MatTableModule,
     BrowserModule,
@@ -46,7 +47,8 @@ import { BlockUIModule } from 'ng-block-ui';
     MatDialogModule,
     ReactiveFormsModule,
     //FileSaverModule,
-    //DataTablesModule,
+    DataTablesModule,
+    //DataTableDirective,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,

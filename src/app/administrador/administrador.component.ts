@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -15,9 +15,9 @@ import { ClientesService } from '../services/clientes.service';
 export class AdministradorComponent implements OnInit, OnDestroy {
   [x: string]: any;
   datosClientes: Array<Clientes> = [];
-  myForm!: FormGroup;
-  myFormMascota!: FormGroup;
-  formDeleteCliente!: FormGroup;
+  myForm!: UntypedFormGroup;
+  myFormMascota!: UntypedFormGroup;
+  formDeleteCliente!: UntypedFormGroup;
   filterPost = '';
   fechaActual = new Date();
   dtOptions: DataTables.Settings = {};
@@ -25,7 +25,7 @@ export class AdministradorComponent implements OnInit, OnDestroy {
   data: any;
   estado: any;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private http: HttpClient, config: NgbModalConfig, private modalService: NgbModal, private servicioCliente: ClientesService) {
+  constructor(private route: ActivatedRoute, private fb: UntypedFormBuilder, private router: Router, private http: HttpClient, config: NgbModalConfig, private modalService: NgbModal, private servicioCliente: ClientesService) {
     config.backdrop = 'static';
     config.keyboard = false;
    }
@@ -84,7 +84,7 @@ export class AdministradorComponent implements OnInit, OnDestroy {
       dstelefono: datos.dstelefono,
     })
   }
-  guardar(form: FormGroup) {
+  guardar(form: UntypedFormGroup) {
     if (this.myForm.valid) {
       if (form.value.nmid && form.value.nmid !== 0) {
         this.actualizar(form);
@@ -102,7 +102,7 @@ export class AdministradorComponent implements OnInit, OnDestroy {
       alert('Formualario inválido')
     }
   }
-  guardarMascota(form: FormGroup) {
+  guardarMascota(form: UntypedFormGroup) {
     if (this.myFormMascota.valid) {
       if (form.value.nmid && form.value.nmid !== 0) {
         this.actualizar(form);
@@ -120,7 +120,7 @@ export class AdministradorComponent implements OnInit, OnDestroy {
       alert('Formualario inválido')
     }
   }
-  removeCliente(form: FormGroup) {
+  removeCliente(form: UntypedFormGroup) {
     if (this.formDeleteCliente.valid) {
       if (form.value.nmid && form.value.nmid !== 0) {
         this.eliminarCli(form);
@@ -131,14 +131,14 @@ export class AdministradorComponent implements OnInit, OnDestroy {
       alert('Formualario inválido')
     }
   }
-  eliminarCli(form: FormGroup) {
+  eliminarCli(form: UntypedFormGroup) {
     this.servicioCliente.deleteClientes(form.value)
       .subscribe(data => {
         alert("Cliente eliminado con exito!!!")
         this.refresh();
     });
   }
-  actualizar(form: FormGroup) {
+  actualizar(form: UntypedFormGroup) {
     this.servicioCliente.updateClientes(form.value)
       .subscribe(data => {
         alert("Se actualizó con exito!!!")

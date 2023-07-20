@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -15,8 +15,8 @@ import { Mascotas } from '../interfaces/mascotas';
 export class MascotasComponent implements OnInit, OnDestroy  {
   [x: string]: any;
   datosMascotas: Array<Mascotas> = [];
-  formDeleteMascota!: FormGroup;
-  myFormMascota!: FormGroup;
+  formDeleteMascota!: UntypedFormGroup;
+  myFormMascota!: UntypedFormGroup;
   filterPost = '';
   fechaActual = new Date();
   dtOptions: DataTables.Settings = {};
@@ -24,7 +24,7 @@ export class MascotasComponent implements OnInit, OnDestroy  {
   data: any;
   estado: any;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private http: HttpClient, config: NgbModalConfig, private modalService: NgbModal, private servicioMascotas: MascotasService) {
+  constructor(private route: ActivatedRoute, private fb: UntypedFormBuilder, private router: Router, private http: HttpClient, config: NgbModalConfig, private modalService: NgbModal, private servicioMascotas: MascotasService) {
     config.backdrop = 'static';
     config.keyboard = false;
    }
@@ -84,7 +84,7 @@ export class MascotasComponent implements OnInit, OnDestroy  {
       });
     });
   }
-  guardar(form: FormGroup) {
+  guardar(form: UntypedFormGroup) {
     if (this.myFormMascota.valid) {
       if (form.value.nmid && form.value.nmid !== 0) {
         this.actualizar(form);
@@ -95,7 +95,7 @@ export class MascotasComponent implements OnInit, OnDestroy  {
       alert('Formualario inválido')
     }
   }
-  deleteMascota(form: FormGroup) {
+  deleteMascota(form: UntypedFormGroup) {
     if (this.formDeleteMascota.valid) {
       if (form.value.nmid && form.value.nmid !== 0) {
         this.eliminarMas(form);
@@ -106,7 +106,7 @@ export class MascotasComponent implements OnInit, OnDestroy  {
       alert('Formualario inválido')
     }
   }
-  eliminarMas(form: FormGroup) {
+  eliminarMas(form: UntypedFormGroup) {
     this.servicioMascotas.deleteMascotaById(form.value)
       .subscribe(data => {
         alert("Mascota eliminada con exito!!!")
@@ -120,7 +120,7 @@ export class MascotasComponent implements OnInit, OnDestroy  {
    }
  }
 
-  actualizar(form: FormGroup) {
+  actualizar(form: UntypedFormGroup) {
     this.servicioMascotas.updateMascotas(form.value)
       .subscribe(data => {
         alert("Se actualizó con exito!!!")
