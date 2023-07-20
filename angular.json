@@ -117,5 +117,8 @@
       }
     }
   },
-  "defaultProject": "veterinaria-xyz"
+  "defaultProject": "veterinaria-xyz",
+  "cli": {
+    "analytics": "8bc12ee5-1281-4a00-afbd-674d912b19d8"
+  }
 }

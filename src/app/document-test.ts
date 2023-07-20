@@ -11,6 +11,7 @@ for(let i in datosApi){
      }
     }
 }
+
 /*
 iniciarSesion(form: FormGroup){
     if(this.myFormLogin.valid){ // Login exitoso 18/07/2023".

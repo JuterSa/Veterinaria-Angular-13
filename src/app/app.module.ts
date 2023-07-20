@@ -10,29 +10,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
-//import { FileSaverModule } from 'ngx-filesaver';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
-//import { LayoutComponent } from './layout/layout.component';
 import { LayoutModule } from '@angular/cdk/layout';
-//import { HomeComponent } from './home/home.component';
-//import { MenuModule } from './menu/menu.module';
-//import { ErrorTailorModule } from '@ngneat/error-tailor';
-import { BlockUIModule } from 'ng-block-ui';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-//import { ValidateComponent } from './validate/validate.component';
-//import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CoreModule } from './core/core.module';
-//import { JwtInterceptor } from './helper/jwtInterceptor';
-//import { DataTablesModule } from "angular-datatables";
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
-//import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatTabsModule } from '@angular/material/tabs';
-import 'angular-datatables';
-//import { AmplifyUIAngularModule } from '';
-//import Amplify from 'aws-amplify';
-import AmplifyI18n from "amplify-i18n";
+//import 'angular-datatables';
+import { BlockUIModule } from 'ng-block-ui';
+//import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -42,9 +29,9 @@ import AmplifyI18n from "amplify-i18n";
     LoginComponent
   ],
   imports: [
+    //SweetAlert2Module.forRoot(), //La unica forma de que funcione es migrar a las versiones (14 or 15 angular)
     MatPaginatorModule,
     MatTableModule,
-   // AmplifyUIAngularModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -54,7 +41,7 @@ import AmplifyI18n from "amplify-i18n";
     //NgxChartsModule,
     MatTabsModule,
     BlockUIModule.forRoot(),
-    //SweetAlert2Module,
+    //SweetAlert2Module.forRoot(),
     CoreModule,
     MatDialogModule,
     ReactiveFormsModule,
