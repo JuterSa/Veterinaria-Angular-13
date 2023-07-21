@@ -22,7 +22,6 @@
     "@angular/platform-browser": "^14.3.0",
     "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/router": "^14.3.0",
-    "@ng-bootstrap/ng-bootstrap": "^12.1.1",
     "@ngneat/error-tailor": "^3.0.3",
     "@popperjs/core": "^2.11.6",
     "@sweetalert2/ngx-sweetalert2": "^12.1.0",
